@@ -19,7 +19,7 @@ function App() {
           fontSize: '13px',
         }}
       >
-        Made with love and a little rum. Drink responsibly.
+        Made with love and a little Bacardi. Hello, Hannah. I wasn't lying when I said CS was whimsical. -Phil
       </footer>
     </Layout>
   );
