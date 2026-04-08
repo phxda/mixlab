@@ -1,8 +1,15 @@
 import type { ReactNode } from 'react';
+import { NavLink } from 'react-router-dom';
 
 interface LayoutProps {
   children: ReactNode;
 }
+
+const NAV_LINKS = [
+  { to: '/search', label: 'Search' },
+  { to: '/explore', label: 'Explore' },
+  { to: '/surprise', label: 'Surprise Me' },
+];
 
 export default function Layout({ children }: LayoutProps) {
   return (
@@ -24,7 +31,8 @@ export default function Layout({ children }: LayoutProps) {
           borderBottom: '1px solid rgba(255,255,255,0.06)',
         }}
       >
-        <div
+        <NavLink
+          to="/"
           style={{
             fontSize: '24px',
             fontWeight: 700,
@@ -32,27 +40,29 @@ export default function Layout({ children }: LayoutProps) {
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             letterSpacing: '-0.5px',
+            textDecoration: 'none',
           }}
         >
           MixLab
-        </div>
+        </NavLink>
+
         <div style={{ display: 'flex', gap: '24px' }}>
-          {['Search', 'Flavor Map', 'Flavor Compass', 'Surprise Me'].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/ /g, '-')}`}
-              style={{
-                color: 'rgba(240, 230, 255, 0.6)',
+          {NAV_LINKS.map(({ to, label }) => (
+            <NavLink
+              key={to}
+              to={to}
+              style={({ isActive }) => ({
+                color: isActive ? '#f0e6ff' : 'rgba(240,230,255,0.6)',
                 fontSize: '14px',
                 fontWeight: 500,
                 textDecoration: 'none',
                 transition: 'color 0.2s',
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#f0e6ff')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(240, 230, 255, 0.6)')}
+                borderBottom: isActive ? '1px solid rgba(192,132,252,0.5)' : '1px solid transparent',
+                paddingBottom: '2px',
+              })}
             >
-              {item}
-            </a>
+              {label}
+            </NavLink>
           ))}
         </div>
       </nav>
