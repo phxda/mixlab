@@ -39,7 +39,7 @@ export default function FlavorMap() {
 
   const initSimulation = useCallback(() => {
     const { width, height } = dimensions;
-    const svg = d3.select(svgRef.current);
+    const svg = d3.select(svgRef.current!);
     svg.selectAll('*').remove();
 
     const anchors = getClusterAnchors(width, height);
