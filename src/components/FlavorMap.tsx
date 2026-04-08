@@ -284,7 +284,12 @@ export default function FlavorMap() {
         Drag nodes to explore. Scroll or pinch to zoom. Click any cocktail to see the full recipe.
       </p>
 
-      <RecipeModal cocktail={modalCocktail} onClose={() => setModalCocktail(null)} />
+      <RecipeModal
+        cocktail={modalCocktail}
+        onClose={() => setModalCocktail(null)}
+        allCocktails={cocktails}
+        onSelectCocktail={setModalCocktail}
+      />
     </section>
   );
 }

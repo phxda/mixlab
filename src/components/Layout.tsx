@@ -37,10 +37,10 @@ export default function Layout({ children }: LayoutProps) {
           MixLab
         </div>
         <div style={{ display: 'flex', gap: '24px' }}>
-          {['Search', 'Flavor Map', 'Surprise Me'].map((item) => (
+          {['Search', 'Flavor Map', 'Flavor Compass', 'Surprise Me'].map((item) => (
             <a
               key={item}
-              href={`#${item.toLowerCase().replace(' ', '-')}`}
+              href={`#${item.toLowerCase().replace(/ /g, '-')}`}
               style={{
                 color: 'rgba(240, 230, 255, 0.6)',
                 fontSize: '14px',

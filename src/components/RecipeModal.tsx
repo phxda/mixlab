@@ -1,9 +1,12 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Cocktail, FlavorProfile } from '../types';
+import { getNearestNeighbors, FLAVOR_COLORS, dominantFlavor } from '../utils/flavorClustering';
 
 interface RecipeModalProps {
   cocktail: Cocktail | null;
   onClose: () => void;
+  allCocktails?: Cocktail[];
+  onSelectCocktail?: (cocktail: Cocktail) => void;
 }
 
 function RadarChart({ profile }: { profile: FlavorProfile }) {
@@ -91,7 +94,8 @@ function RadarChart({ profile }: { profile: FlavorProfile }) {
   );
 }
 
-export default function RecipeModal({ cocktail, onClose }: RecipeModalProps) {
+export default function RecipeModal({ cocktail, onClose, allCocktails, onSelectCocktail }: RecipeModalProps) {
+  const neighbors = cocktail && allCocktails ? getNearestNeighbors(cocktail, allCocktails, 3) : [];
   return (
     <AnimatePresence>
       {cocktail && (
@@ -230,6 +234,47 @@ export default function RecipeModal({ cocktail, onClose }: RecipeModalProps) {
                   ))}
                 </div>
               </div>
+
+              {neighbors.length > 0 && onSelectCocktail && (
+                <div style={{ marginBottom: '24px' }}>
+                  <h3 style={{ fontSize: '14px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: 'rgba(240,230,255,0.4)', marginBottom: '12px' }}>
+                    You'd Also Like
+                  </h3>
+                  <div style={{ display: 'flex', gap: '10px' }}>
+                    {neighbors.map((n) => {
+                      const dominant = dominantFlavor(n.flavorProfile);
+                      return (
+                        <button
+                          key={n.id}
+                          onClick={() => onSelectCocktail(n)}
+                          style={{
+                            flex: 1,
+                            padding: '10px 12px',
+                            background: 'rgba(255,255,255,0.04)',
+                            border: `1px solid ${FLAVOR_COLORS[dominant]}30`,
+                            borderRadius: '12px',
+                            cursor: 'pointer',
+                            textAlign: 'left',
+                            transition: 'background 0.15s, border-color 0.15s',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
+                            e.currentTarget.style.borderColor = `${FLAVOR_COLORS[dominant]}60`;
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                            e.currentTarget.style.borderColor = `${FLAVOR_COLORS[dominant]}30`;
+                          }}
+                        >
+                          <div style={{ fontSize: '22px', marginBottom: '4px' }}>{n.imageEmoji}</div>
+                          <div style={{ fontSize: '12px', fontWeight: 600, color: '#f0e6ff', lineHeight: 1.3 }}>{n.name}</div>
+                          <div style={{ fontSize: '11px', color: FLAVOR_COLORS[dominant], marginTop: '4px', fontWeight: 500 }}>{dominant}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               <div>
                 <h3 style={{ fontSize: '14px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: 'rgba(240,230,255,0.4)', marginBottom: '12px' }}>

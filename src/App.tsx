@@ -2,6 +2,7 @@ import Layout from './components/Layout';
 import Hero from './components/Hero';
 import IngredientSearch from './components/IngredientSearch';
 import FlavorMap from './components/FlavorMap';
+import FlavorCompass from './components/FlavorCompass';
 import SurpriseRoulette from './components/SurpriseRoulette';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
       <Hero />
       <IngredientSearch />
       <FlavorMap />
+      <FlavorCompass />
       <SurpriseRoulette />
       <footer
         style={{

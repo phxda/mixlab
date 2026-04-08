@@ -1,4 +1,4 @@
-import type { FlavorProfile } from '../types';
+import type { Cocktail, FlavorProfile } from '../types';
 
 export type FlavorAxis = keyof FlavorProfile;
 
@@ -31,6 +31,25 @@ export function flavorDistance(a: FlavorProfile, b: FlavorProfile): number {
     sum += diff * diff;
   }
   return Math.sqrt(sum);
+}
+
+export function getNearestNeighbors(cocktail: Cocktail, allCocktails: Cocktail[], n = 3): Cocktail[] {
+  return allCocktails
+    .filter((c) => c.id !== cocktail.id)
+    .map((c) => ({ cocktail: c, dist: flavorDistance(c.flavorProfile, cocktail.flavorProfile) }))
+    .sort((a, b) => a.dist - b.dist)
+    .slice(0, n)
+    .map((r) => r.cocktail);
+}
+
+export function getFlavorMidpoint(a: FlavorProfile, b: FlavorProfile): FlavorProfile {
+  return {
+    sweet: (a.sweet + b.sweet) / 2,
+    sour: (a.sour + b.sour) / 2,
+    bitter: (a.bitter + b.bitter) / 2,
+    strong: (a.strong + b.strong) / 2,
+    fruity: (a.fruity + b.fruity) / 2,
+  };
 }
 
 export function getClusterAnchors(width: number, height: number): Record<FlavorAxis, { x: number; y: number }> {
