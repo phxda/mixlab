@@ -27,11 +27,11 @@ export default function Home() {
   const [modalCocktail, setModalCocktail] = useState<Cocktail | null>(null);
 
   const featured = useMemo(() => {
-    const seen = new Set<Vibe>();
+    const usedIds = new Set<string>();
     const picks: Cocktail[] = [];
     for (const vibe of VIBES) {
-      const match = cocktails.find((c) => c.vibes.includes(vibe) && !seen.has(vibe));
-      if (match) { picks.push(match); seen.add(vibe); }
+      const match = cocktails.find((c) => c.vibes.includes(vibe) && !usedIds.has(c.id));
+      if (match) { picks.push(match); usedIds.add(match.id); }
     }
     return picks;
   }, []);
