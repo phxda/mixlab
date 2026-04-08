@@ -63,7 +63,8 @@ export default function FlavorMap() {
     }
 
     const defs = svg.append('defs');
-    const glowFilter = defs.append('filter').attr('id', 'glow');
+    const glowFilter = defs.append('filter').attr('id', 'glow')
+      .attr('x', '-50%').attr('y', '-50%').attr('width', '200%').attr('height', '200%');
     glowFilter.append('feGaussianBlur').attr('stdDeviation', '3').attr('result', 'blur');
     const merge = glowFilter.append('feMerge');
     merge.append('feMergeNode').attr('in', 'blur');
