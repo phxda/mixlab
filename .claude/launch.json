@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mixlab",
+      "runtimeExecutable": "/Users/hdai/miniconda3/bin/node",
+      "runtimeArgs": ["/Users/hdai/Documents/AlcoholProject/node_modules/.bin/vite"],
+      "port": 5173
+    }
+  ]
+}
