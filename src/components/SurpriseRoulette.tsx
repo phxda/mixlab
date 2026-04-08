@@ -177,7 +177,7 @@ export default function SurpriseRoulette() {
           >
             <svg width="28" height="28" viewBox="0 0 28 28">
               <polygon
-                points="14,2 26,26 14,20 2,26"
+                points="14,26 2,2 14,8 26,2"
                 fill="#c084fc"
                 stroke="rgba(255,255,255,0.3)"
                 strokeWidth="1"
@@ -216,14 +216,11 @@ export default function SurpriseRoulette() {
                 position: 'relative',
                 boxShadow: '0 0 60px rgba(192,132,252,0.12), inset 0 0 40px rgba(0,0,0,0.4)',
               }}
-            />
-            {/* SVG overlay rotates with the wheel */}
-            <motion.div
-              animate={{ rotate: rotation }}
-              transition={{ type: 'spring', damping: 20, stiffness: 28, duration: 3.8 }}
-              style={{ position: 'absolute', top: 0, left: 0 }}
             >
-              {svgOverlay}
+              {/* SVG overlay is a child so it shares the same transform origin */}
+              <div style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}>
+                {svgOverlay}
+              </div>
             </motion.div>
           </div>
         </div>
