@@ -200,7 +200,7 @@ export default function IngredientSearch() {
               onBlur={(e) => (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)')}
             />
             <p style={{ fontSize: '12px', color: 'rgba(240,230,255,0.25)', marginTop: '8px' }}>
-              Try: "sweet and fruity", "something classic for a date night", "strong and bitter"
+              Try: "something tropical and refreshing", "not too sweet", "warm and boozy for winter", "classic date night drink"
             </p>
           </div>
         )}
