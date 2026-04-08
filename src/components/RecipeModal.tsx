@@ -7,7 +7,7 @@ interface RecipeModalProps {
 }
 
 function RadarChart({ profile }: { profile: FlavorProfile }) {
-  const size = 140;
+  const size = 170;
   const center = size / 2;
   const radius = 55;
   const axes: (keyof FlavorProfile)[] = ['sweet', 'sour', 'bitter', 'strong', 'fruity'];

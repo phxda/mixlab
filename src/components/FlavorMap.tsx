@@ -69,9 +69,18 @@ export default function FlavorMap() {
     merge.append('feMergeNode').attr('in', 'blur');
     merge.append('feMergeNode').attr('in', 'SourceGraphic');
 
-    const linkGroup = svg.append('g');
-    const nodeGroup = svg.append('g');
-    const labelGroup = svg.append('g');
+    const zoomGroup = svg.append('g').attr('class', 'zoom-group');
+    const linkGroup = zoomGroup.append('g');
+    const nodeGroup = zoomGroup.append('g');
+    const labelGroup = zoomGroup.append('g');
+
+    const zoom = d3.zoom<SVGSVGElement, unknown>()
+      .scaleExtent([0.5, 4])
+      .on('zoom', (event) => {
+        zoomGroup.attr('transform', event.transform);
+      });
+
+    svg.call(zoom).style('touch-action', 'none');
 
     linkGroup
       .selectAll('line')
@@ -271,7 +280,7 @@ export default function FlavorMap() {
       </motion.div>
 
       <p style={{ fontSize: '12px', color: 'rgba(240,230,255,0.25)', marginTop: '12px', textAlign: 'center' }}>
-        Drag nodes to explore. Click any cocktail to see the full recipe.
+        Drag nodes to explore. Scroll or pinch to zoom. Click any cocktail to see the full recipe.
       </p>
 
       <RecipeModal cocktail={modalCocktail} onClose={() => setModalCocktail(null)} />
